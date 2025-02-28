@@ -29,6 +29,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.3.0
@@ -57,9 +60,6 @@ importers:
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.17
-      typescript:
-        specifier: ^5.7.3
-        version: 5.8.2
 
 packages:
 
