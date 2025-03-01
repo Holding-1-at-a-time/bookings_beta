@@ -14,6 +14,9 @@ importers:
       '@clerk/nextjs':
         specifier: ^6.12.1
         version: 6.12.1(next@15.1.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@convex-dev/twilio':
+        specifier: ^0.1.6
+        version: 0.1.6(convex@1.19.3(@clerk/clerk-react@5.24.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       convex:
         specifier: ^1.19.3
         version: 1.19.3(@clerk/clerk-react@5.24.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -101,6 +104,11 @@ packages:
   '@clerk/types@4.47.0':
     resolution: {integrity: sha512-xB/gqMq6cq6/47ymKs0WaaxKEFPzlvbSgJTLFIfnPMnFSNwYE4WVgVh6geFx6qWr3z588JDDZkJskBHZlgPmQQ==}
     engines: {node: '>=18.17.0'}
+
+  '@convex-dev/twilio@0.1.6':
+    resolution: {integrity: sha512-tkTaFr0sApO+4G9zyq3pc+/4XcxdYwNFoDBdZNwUDMeZd3u1R7He0EC60GMIz3pPq84E145joJqmoAduAF9PoQ==}
+    peerDependencies:
+      convex: ~1.16.5 || >=1.17.0 <1.25.0
 
   '@emnapi/runtime@1.3.1':
     resolution: {integrity: sha512-kEBmG8KyqtxJZv+ygbEim+KCGtIq1fC22Ms3S4ziXmYKm8uyoLX0MHONVKwp+9opg390VaKRNt4a7A9NwmpNhw==}
@@ -2158,6 +2166,10 @@ snapshots:
   '@clerk/types@4.47.0':
     dependencies:
       csstype: 3.1.3
+
+  '@convex-dev/twilio@0.1.6(convex@1.19.3(@clerk/clerk-react@5.24.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
+    dependencies:
+      convex: 1.19.3(@clerk/clerk-react@5.24.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   '@emnapi/runtime@1.3.1':
     dependencies:

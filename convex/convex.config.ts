@@ -2,7 +2,7 @@
     * @description      : 
     * @author           : rrome
     * @group            : 
-    * @created          : 28/02/2025 - 13:31:58
+    * @created          : 28/02/2025 - 13:53:27
     * 
     * MODIFICATION LOG
     * - Version         : 1.0.0
@@ -10,13 +10,11 @@
     * - Author          : rrome
     * - Modification    : 
 **/
-const authConfig = {
-  providers: [
-    {
-      domain: process.env.CLERK_JWT_ISSUER_DOMAIN,
-      applicationID: "convex",
-    },
-  ],
-};
+// convex/convex.config.ts
+import { defineApp } from "convex/server";
+import twilio from "@convex-dev/twilio/convex.config";
 
-export default authConfig;
+const app = defineApp();
+app.use(twilio);
+
+export default app;
