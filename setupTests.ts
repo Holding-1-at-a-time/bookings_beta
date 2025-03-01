@@ -146,3 +146,4 @@ const mockHistory = {
         mockHistory.state = state;
         window.location.href = url; // Update location on replaceState
     }),
+}

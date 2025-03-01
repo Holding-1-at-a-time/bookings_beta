@@ -8,9 +8,15 @@
  * @module
  */
 
+import type * as appointments from "../appointments.js";
+import type * as auth from "../auth.js";
+import type * as businesses from "../businesses.js";
 import type * as http from "../http.js";
 import type * as myFunctions from "../myFunctions.js";
+import type * as organizations from "../organizations.js";
+import type * as roles from "../roles.js";
 import type * as twilio from "../twilio.js";
+import type * as users from "../users.js";
 
 import type {
   ApiFromModules,
@@ -26,9 +32,15 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  appointments: typeof appointments;
+  auth: typeof auth;
+  businesses: typeof businesses;
   http: typeof http;
   myFunctions: typeof myFunctions;
+  organizations: typeof organizations;
+  roles: typeof roles;
   twilio: typeof twilio;
+  users: typeof users;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 
