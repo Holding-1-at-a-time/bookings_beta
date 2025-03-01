@@ -12,6 +12,13 @@
 **/
 import { SignUp } from "@clerk/nextjs"
 
+/**
+ * Renders the SignUp page component with a centered layout.
+ * It utilizes the SignUp component with custom appearance settings.
+ * 
+ * @returns JSX.Element - The rendered SignUp page.
+ * @throws None
+ */
 export default function SignUpPage() {
     return (
         <div className="flex justify-center items-center min-h-screen py-12">

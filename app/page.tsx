@@ -1,178 +1,124 @@
-/**
-    * @description      : 
-    * @author           : rrome
-    * @group            : 
-    * @created          : 01/03/2025 - 03:15:13
-    * 
-    * MODIFICATION LOG
-    * - Version         : 1.0.0
-    * - Date            : 01/03/2025
-    * - Author          : rrome
-    * - Modification    : 
-**/
-"use client";
-
+import Link from 'next/link';
 import {
-  Authenticated,
-  Unauthenticated,
-  useMutation,
-  useQuery,
-} from "convex/react";
-import { api } from "../convex/_generated/api";
-import Link from "next/link";
-import { SignUpButton } from "@clerk/nextjs";
-import { SignInButton } from "@clerk/nextjs";
-import { UserButton } from "@clerk/nextjs";
+  ArrowRight,
+  Calendar,
+  Clock,
+  Shield,
+  Users
+} from 'lucide-react';
+import { Button } from '@/components/ui/Button';
 
 export default function Home() {
   return (
-    <>
-      <header className="sticky top-0 z-10 bg-background p-4 border-b-2 border-slate-200 dark:border-slate-800 flex flex-row justify-between items-center">
-        Convex + Next.js + Clerk
-        <UserButton />
-      </header>
-      <main className="p-8 flex flex-col gap-8">
-        <h1 className="text-4xl font-bold text-center">
-          Convex + Next.js + Clerk
-        </h1>
-        <Authenticated>
-          <Content />
-        </Authenticated>
-        <Unauthenticated>
-          <SignInForm />
-        </Unauthenticated>
-      </main>
-    </>
-  );
-}
-
-function SignInForm() {
-  return (
-    <div className="flex flex-col gap-8 w-96 mx-auto">
-      <p>Log in to see the numbers</p>
-      <SignInButton mode="modal">
-        <button className="bg-foreground text-background px-4 py-2 rounded-md">
-          Sign in
-        </button>
-      </SignInButton>
-      <SignUpButton mode="modal">
-        <button className="bg-foreground text-background px-4 py-2 rounded-md">
-          Sign up
-        </button>
-      </SignUpButton>
-    </div>
-  );
-}
-
-function Content() {
-  const { viewer, numbers } =
-    useQuery(api.myFunctions.listNumbers, {
-      count: 10,
-    }) ?? {};
-  const addNumber = useMutation(api.myFunctions.addNumber);
-
-  if (viewer === undefined || numbers === undefined) {
-    return (
-      <div className="mx-auto">
-        <p>loading... (consider a loading skeleton)</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex flex-col gap-8 max-w-lg mx-auto">
-      <p>Welcome {viewer ?? "Anonymous"}!</p>
-      <p>
-        Click the button below and open this page in another window - this data
-        is persisted in the Convex cloud database!
-      </p>
-      <p>
-        <button
-          className="bg-foreground text-background text-sm px-4 py-2 rounded-md"
-          onClick={() => {
-            void addNumber({ value: Math.floor(Math.random() * 10) });
-          }}
-        >
-          Add a random number
-        </button>
-      </p>
-      <p>
-        Numbers:{" "}
-        {numbers?.length === 0
-          ? "Click the button!"
-          : (numbers?.join(", ") ?? "...")}
-      </p>
-      <p>
-        Edit{" "}
-        <code className="text-sm font-bold font-mono bg-slate-200 dark:bg-slate-800 px-1 py-0.5 rounded-md">
-          convex/myFunctions.ts
-        </code>{" "}
-        to change your backend
-      </p>
-      <p>
-        Edit{" "}
-        <code className="text-sm font-bold font-mono bg-slate-200 dark:bg-slate-800 px-1 py-0.5 rounded-md">
-          app/page.tsx
-        </code>{" "}
-        to change your frontend
-      </p>
-      <p>
-        See the{" "}
-        <Link href="/server" className="underline hover:no-underline">
-          /server route
-        </Link>{" "}
-        for an example of loading data in a server component
-      </p>
-      <div className="flex flex-col">
-        <p className="text-lg font-bold">Useful resources:</p>
-        <div className="flex gap-2">
-          <div className="flex flex-col gap-2 w-1/2">
-            <ResourceCard
-              title="Convex docs"
-              description="Read comprehensive documentation for all Convex features."
-              href="https://docs.convex.dev/home"
-            />
-            <ResourceCard
-              title="Stack articles"
-              description="Learn about best practices, use cases, and more from a growing
-            collection of articles, videos, and walkthroughs."
-              href="https://www.typescriptlang.org/docs/handbook/2/basic-types.html"
-            />
+    <div className="flex flex-col min-h-screen">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center">
+          <div className="mr-4 flex">
+            <Link href="/" className="flex items-center space-x-2">
+              <Calendar className="h-6 w-6 text-primary" />
+              <span className="font-bold text-xl">Smart Booking&apos;s</span>
+            </Link>
           </div>
-          <div className="flex flex-col gap-2 w-1/2">
-            <ResourceCard
-              title="Templates"
-              description="Browse our collection of templates to get started quickly."
-              href="https://www.convex.dev/templates"
-            />
-            <ResourceCard
-              title="Discord"
-              description="Join our developer community to ask questions, trade tips & tricks,
-            and show off your projects."
-              href="https://www.convex.dev/community"
-            />
+          <div className="ml-auto flex items-center space-x-4">
+            <Link href="/sign-in">
+              <Button variant="ghost" size="sm">
+                Sign In
+              </Button>
+            </Link>
+            <Link href="/sign-up">
+              <Button size="sm">Get Started</Button>
+            </Link>
           </div>
         </div>
-      </div>
+      </header>
+      <main className="flex-1">
+        <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
+                  AI-Powered Scheduling for Auto Detailing Businesses
+                </h1>
+                <p className="max-w-[700px] text-muted-foreground md:text-xl">
+                  Streamline your auto detailing business with smart booking technology that optimizes schedules and
+                  delights customers.
+                </p>
+              </div>
+              <div className="space-x-4">
+                <Link href="/sign-up">
+                  <Button size="lg" className="gap-1">
+                    Start Free Trial <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="#features">
+                  <Button variant="outline" size="lg">
+                    Learn More
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-muted">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+                  Features Built for Your Business
+                </h2>
+                <p className="max-w-[700px] text-muted-foreground md:text-xl">
+                  Everything you need to manage your auto detailing schedule efficiently.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
+              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
+                <Calendar className="h-10 w-10 text-primary" />
+                <h3 className="text-xl font-bold">Smart Scheduling</h3>
+                <p className="text-center text-muted-foreground">
+                  AI-driven appointment booking that optimizes your schedule and prevents double-booking.
+                </p>
+              </div>
+              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
+                <Users className="h-10 w-10 text-primary" />
+                <h3 className="text-xl font-bold">Multi-Tenant Architecture</h3>
+                <p className="text-center text-muted-foreground">
+                  Secure isolation between businesses with dedicated dashboards and configurations.
+                </p>
+              </div>
+              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
+                <Shield className="h-10 w-10 text-primary" />
+                <h3 className="text-xl font-bold">Role-Based Access</h3>
+                <p className="text-center text-muted-foreground">
+                  Granular permissions for admins, detailers, and clients with secure authentication.
+                </p>
+              </div>
+              <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm">
+                <Clock className="h-10 w-10 text-primary" />
+                <h3 className="text-xl font-bold">Real-Time Updates</h3>
+                <p className="text-center text-muted-foreground">
+                  Live schedule adjustments and instant notifications for all users.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <footer className="border-t py-6 md:py-8">
+        <div className="container flex flex-col items-center justify-center gap-4 md:flex-row md:gap-8">
+          <p className="text-center text-sm text-muted-foreground md:text-left">
+            © 2023 Smart Booking&apos;s. All rights reserved.
+          </p>
+          <div className="flex gap-4">
+            <Link href="/terms" className="text-sm text-muted-foreground underline">
+              Terms of Service
+            </Link>
+            <Link href="/privacy" className="text-sm text-muted-foreground underline">
+              Privacy
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
-  );
-}
-
-function ResourceCard({
-  title,
-  description,
-  href,
-}: {
-  title: string;
-  description: string;
-  href: string;
-}) {
-  return (
-    <div className="flex flex-col gap-2 bg-slate-200 dark:bg-slate-800 p-4 rounded-md h-28 overflow-auto">
-      <a href={href} className="text-sm underline hover:no-underline">
-        {title}
-      </a>
-      <p className="text-xs">{description}</p>
-    </div>
-  );
+  )
 }

@@ -10,8 +10,15 @@
     * - Author          : rrome
     * - Modification    : 
 **/
+
 import { SignIn } from "@clerk/nextjs"
 
+/**
+ * Renders the SignIn page with a centered layout and custom appearance.
+ * 
+ * @returns JSX.Element - The rendered SignIn component wrapped in a div.
+ * @throws No exceptions are thrown.
+ */
 export default function SignInPage() {
     return (
         <div className="flex justify-center items-center min-h-screen py-12">
