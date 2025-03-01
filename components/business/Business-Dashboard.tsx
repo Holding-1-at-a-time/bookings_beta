@@ -5,10 +5,10 @@ import Link from "next/link"
 import { useQuery } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import type { Doc } from "@/convex/_generated/dataModel"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CalendarDays, DollarSign, Users, Clock } from "lucide-react"
+import { Button } from "../ui/Button"
+import { Card, CardHeader, CardTitle, CardContent } from "../ui/Card"
 
 interface BusinessDashboardProps {
     business: Doc<"businesses">
