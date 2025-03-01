@@ -2,11 +2,14 @@ import { Any } from 'next-sanity';
 import { jest } from '@jest/globals';
 import '@testing-library/jest-dom';
 import 'jest-extended';
+import { setupBrowserMocks } from './utils/testUtils/browserMocks';
 
 // Mock console
 global.console.error = jest.fn();
 global.console.warn = jest.fn();
 
+// Set up mocks once
+setupBrowserMocks();
 
 // Mock localStorage and sessionStorage
 const storageMock = () => {
@@ -143,67 +146,3 @@ const mockHistory = {
         mockHistory.state = state;
         window.location.href = url; // Update location on replaceState
     }),
-    go: jest.fn(),
-};
-
-Object.defineProperty(window, 'history', {
-    value: mockHistory,
-    writable: true,
-});
-
-Object.defineProperty(window, 'history', {
-    value: {
-        /**
-         * The state of the current page.
-         */
-        state: {},
-        /**
-         * Push a new state to the history.
-         *
-         * @param {unknown} state - The new state to push.
-         * @param {string} title - The title of the new state.
-         * @param {string} url - The url of the new state.
-         */
-        pushState(state: unknown, title: string, url: string) {
-            this.state = state;
-            this.replaceState(state, title, url);
-        },
-        /**
-         * Replace the current state with a new one.
-         *
-         * @param {unknown} state - The new state to replace the current one.
-         * @param {string} title - The title of the new state.
-         * @param {string} url - The url of the new state.
-         */
-        replaceState(state: unknown, title: string, url: string) {
-            this.state = state;
-            Object.defineProperty(window, 'location', {
-                value: {
-                    href: url,
-                    assign: jest.fn(),
-                    reload: jest.fn(),
-                },
-                writable: true,
-            });
-        },
-        /**
-         * Go back or forward in the history.
-         *
-         * @param {string|number} delta - The number of steps to go back or forward.
-         */
-        go(delta: string | number) {
-            if (delta === -1) {
-                Object.defineProperty(window, 'location', {
-                    value: {
-                        href: '',
-                        assign: jest.fn(),
-                        reload: jest.fn(),
-                    },
-                    writable: true,
-                });
-            }
-        },
-    },
-    configurable: true,
-});
-

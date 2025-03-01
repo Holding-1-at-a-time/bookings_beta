@@ -1,27 +1,13 @@
-import ConvexClientProvider from '@/components/ConvexClientProvider';
 import React from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { ClerkProvider } from '@clerk/nextjs';
-import { cn } from '@/lib/utils';
 import { dark } from '@clerk/themes';
 import { Geist, Geist_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
-/**
-    * @description      : 
-    * @author           : rrome
-    * @group            : 
-    * @created          : 19/02/2025 - 04:09:39
-    * 
-    * MODIFICATION LOG
-    * - Version         : 1.0.0
-    * - Date            : 19/02/2025
-    * - Author          : rrome
-    * - Modification    : 
-**/
-
-
+import ConvexClientProvider from '@/components/ConvexClientProvider';
+import { cn } from '@/lib/utils';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,28 +33,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: [dark],
-        variables: {
-          colorPrimary: "#00AE98",
-          colorTextSecondary: "#707070",
-          colorShimmer: "#00AE98",
-        },
-        layout: {
-          animations: true,
-          shimmer: true,
-        },
-      }}
-    >
-      <ConvexClientProvider>
-
-        <html lang="en">
-          <body className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`, 'bg-gray-100 text-white min-h-screen')}>
-            <main className="min-h-screen bg-gray-100 pt-16">{children}</main>
-            <Analytics />
-            <SpeedInsights />
-          </body>
+    <html lang="en" suppressHydrationWarning>
+      <ClerkProvider
+        appearance={{
+          baseTheme: [dark],
+          variables: {
+            colorPrimary: "#00AE98",
+            colorTextSecondary: "#707070",
+            colorShimmer: "#00AE98",
+          },
+          layout: {
+            animations: true,
+            shimmer: true,
+          },
+        }}
+      >
+        <ConvexClientProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <ToastProvider />
+            <body className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`, 'bg-gray-100 text-white min-h-screen')}>
+              <main className="min-h-screen bg-gray-100 pt-16">
+                {children}
+              </main>
+            </body>
+          </ThemeProvider>
+          <Analytics />
+          <SpeedInsights />
         </html>
       </ConvexClientProvider>
     </ClerkProvider>
