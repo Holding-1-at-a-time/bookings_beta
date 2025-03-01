@@ -2,19 +2,29 @@
     * @description      : 
     * @author           : rrome
     * @group            : 
-    * @created          : 28/02/2025 - 13:20:35
+    * @created          : 19/02/2025 - 04:09:39
     * 
     * MODIFICATION LOG
     * - Version         : 1.0.0
-    * - Date            : 28/02/2025
+    * - Date            : 19/02/2025
     * - Author          : rrome
     * - Modification    : 
 **/
+
+import React from "react";
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider, RedirectToSignIn } from "@clerk/nextjs";
+import { dark } from '@clerk/themes'
+import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
+import { Navigation } from "@/components/Navigation";
+
 import ConvexClientProvider from "@/components/ConvexClientProvider";
-import { ClerkProvider } from "@clerk/nextjs";
+import { EmailAddress } from "@clerk/backend";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,14 +50,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider dynamic>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <ConvexClientProvider>{children}</ConvexClientProvider>
-        </body>
-      </html>
+    <ClerkProvider
+      appearance={{
+        baseTheme: [dark],
+        variables: {
+          colorPrimary: "#00AE98",
+          colorTextSecondary: "#707070",
+          colorShimmer: "#00AE98",
+        },
+        layout: {
+          animations: true,
+          shimmer: true,
+        },
+      }}
+    >
+      <ConvexClientProvider>
+
+        <html lang="en">
+          <body className={cn(`${geistSans.variable} ${geistMono.variable} antialiased`, 'bg-gray-100 text-white min-h-screen')}>
+            <Navigation />
+            <Header /> {/* Header component placed inside the body */}
+            <main className="min-h-screen bg-gray-100 pt-16">{children}</main>
+            <Toaster />
+            <Analytics />
+            <SpeedInsights />
+            <footer />
+          </body>
+        </html>
+      </ConvexClientProvider>
     </ClerkProvider>
   );
 }

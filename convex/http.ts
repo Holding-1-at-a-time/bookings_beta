@@ -11,7 +11,7 @@
     * - Modification    : 
 **/
 // http.ts
-import { twilio } from "./example";
+import { twilio } from "./twilio";
 import { httpRouter } from "convex/server";
 
 const http = httpRouter();

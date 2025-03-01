@@ -10,7 +10,6 @@
   --accent: #4B5563;
 }
 
-/* Reset and base styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -32,7 +31,6 @@ a {
   text-decoration: none;
 }
 
-/* Custom utility classes */
 @layer utilities {
   .shadow-glow {
     box-shadow: 0 0 15px rgba(0, 174, 152, 0.5);
@@ -58,7 +56,6 @@ a {
   }
 }
 
-/* Custom component styles */
 .btn {
   @apply px-4 py-2 rounded-lg font-semibold transition-all-300;
 }
@@ -79,7 +76,6 @@ a {
   @apply bg-gray-800 shadow-glow rounded-lg p-6 transition-all-300 hover:transform hover:scale-105;
 }
 
-/* 3D and modern styling */
 .perspective-3d {
   perspective: 1000px;
 }
@@ -93,7 +89,6 @@ a {
   transform: rotateX(0deg) rotateY(0deg);
 }
 
-/* Animations */
 @keyframes float {
   0% {
     transform: translateY(0px);
@@ -112,7 +107,6 @@ a {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -130,7 +124,6 @@ a {
   background: var(--primary-dark);
 }
 
-/* Typography */
 h1,
 h2,
 h3,
@@ -156,26 +149,22 @@ p {
   @apply mb-4;
 }
 
-/* Form elements */
 input,
 textarea,
 select {
   @apply input mb-4;
 }
 
-/* Responsive design helpers */
 .container {
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 }
 
-/* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
 }
 
-/* Accessibility */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -188,7 +177,6 @@ select {
   border-width: 0;
 }
 
-/* Print styles */
 @media print {
   body {
     background-color: white;
@@ -204,7 +192,6 @@ select {
   }
 }
 
-@layer base {}
 
 @layer base {
   * {
@@ -224,7 +211,7 @@ select {
     gap: 20px;
   }
 
-  */ .spinner {
+  .spinner {
     width: 100px;
     height: 100px;
     position: relative;
@@ -233,7 +220,6 @@ select {
   .spinner::before,
   .spinner::after,
   .spinner-inner {
-    /* Styles for inner spinner */
     content: '';
     position: absolute;
     border-radius: 50%;
@@ -260,9 +246,7 @@ select {
   }
 
   .spinner-inner {
-    /* Inner spinner styles */
     border-top: 8px solid #007761;
-    /* Slightly darker green */
     animation: spin 1s linear infinite;
   }
 
