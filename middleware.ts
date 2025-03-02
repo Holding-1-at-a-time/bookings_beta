@@ -24,7 +24,7 @@ const organizationSyncOptions = {
 
 export default clerkMiddleware(
   async (auth, request) => {
-    const { userId, orgId, sessionClaims } = await auth()
+    const { userId, sessionClaims } = await auth()
 
     // Always allow public routes
     if (isPublicRoute(request)) {
