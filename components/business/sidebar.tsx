@@ -21,7 +21,7 @@ interface SidebarNavProps extends React.HTMLAttributes<HTMLElement> {
 export function Sidebar({ className, ...props }: SidebarNavProps) {
     const pathname = usePathname()
     const { isLoaded, organization } = useOrganization()
-    const { user } = useUser()
+    
     const role = organization?.membership?.role
 
     // Define navigation items with role-based access
