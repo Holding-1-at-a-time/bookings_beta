@@ -123,6 +123,9 @@ export const create = mutation({
         }
 
         // Create the appointment
+        if (new Date(args.startTime) >= new Date(args.endTime)) {
+            throw new Error("Start time must be before end time");
+        }
         const appointmentId = await ctx.db.insert("appointments", {
             organizationId: args.organizationId,
             serviceId: args.serviceId,
