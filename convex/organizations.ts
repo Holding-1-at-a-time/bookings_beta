@@ -133,13 +133,12 @@ export const addMember = mutation({
             return existingMembership._id
         }
 
-        const membershipId = await ctx.db.insert("organizationUsers", {
-            userId: args.userId,
-            organizationId: args.organizationId,
-            role: args.role,
-        })
+        return await ctx.db.insert("organizationUsers", {
+                    userId: args.userId,
+                    organizationId: args.organizationId,
+                    role: args.role,
+                });
 
-        return membershipId
     },
 })
 
