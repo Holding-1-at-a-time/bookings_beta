@@ -178,17 +178,16 @@ export const getMembers = query({
             .collect()
 
         // Get user details for each member
-        const members = await Promise.all(
-            memberships.map(async (membership) => {
-                const user = await ctx.db.get(membership.userId)
-                return {
-                    ...membership,
-                    user,
-                }
-            }),
-        )
+        return await Promise.all(
+                    memberships.map(async (membership) => {
+                        const user = await ctx.db.get(membership.userId)
+                        return {
+                            ...membership,
+                            user,
+                        }
+                    }),
+                );
 
-        return members
     },
 })
 
