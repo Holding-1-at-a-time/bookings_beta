@@ -48,12 +48,11 @@ export const get = query({
 export const getByClerkId = query({
     args: { clerkId: v.string() },
     async handler(ctx, args) {
-        const user = await ctx.db
-            .query("users")
-            .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
-            .first()
+        return await ctx.db
+                    .query("users")
+                    .withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId))
+                    .first();
 
-        return user
     },
 })
 
