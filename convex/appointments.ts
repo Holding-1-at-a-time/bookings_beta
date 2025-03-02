@@ -96,6 +96,21 @@ export const create = mutation({
         notes: v.optional(v.string()),
     },
     async handler(ctx, args) {
+        // Check for conflicting appointments
+        const conflictingAppointment = await ctx.db
+            .query("appointments")
+            .withIndex("by_organization", q => q.eq("organizationId", args.organizationId))
+            .filter(q => 
+                (q.eq(q.field("detailerId"), args.detailerId) || q.eq(q.field("clientId"), args.clientId))
+                && q.lt(q.field("endTime"), args.startTime)
+                && q.gt(q.field("startTime"), args.endTime)
+            )
+            .first();
+        
+        if (conflictingAppointment) {
+            throw new Error("Time slot conflicts with existing appointment");
+        }
+    async handler(ctx, args) {
         // Verify the user has access to this organization
         const { userId, role } = await verifyOrgAccess(ctx, args.organizationId)
 
