@@ -75,15 +75,14 @@ export const create = mutation({
             return existingUser._id
         }
 
-        const userId = await ctx.db.insert("users", {
-            clerkId: args.clerkId,
-            email: args.email,
-            firstName: args.firstName,
-            lastName: args.lastName,
-            imageUrl: args.imageUrl,
-        })
+        return await ctx.db.insert("users", {
+                    clerkId: args.clerkId,
+                    email: args.email,
+                    firstName: args.firstName,
+                    lastName: args.lastName,
+                    imageUrl: args.imageUrl,
+                });
 
-        return userId
     },
 })
 
