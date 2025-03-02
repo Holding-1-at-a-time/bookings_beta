@@ -48,14 +48,13 @@ export const create = mutation({
             return existingOrg._id
         }
 
-        const organizationId = await ctx.db.insert("organizations", {
-            clerkId: args.clerkId,
-            name: args.name,
-            slug: args.slug,
-            imageUrl: args.imageUrl,
-        })
+        return await ctx.db.insert("organizations", {
+                    clerkId: args.clerkId,
+                    name: args.name,
+                    slug: args.slug,
+                    imageUrl: args.imageUrl,
+                });
 
-        return organizationId
     },
 })
 
