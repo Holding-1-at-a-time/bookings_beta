@@ -1,40 +1,23 @@
+name: "CodeQL Advanced"
 
-name: "CodeQL Advanced Security Analysis"
-
-# This workflow is triggered on pushes and pull requests to the 'main' branch,
-# and it runs on a weekly schedule.
 on:
   push:
-    branches: [ "main" ]
+    branches: "main"
   pull_request:
-    branches: [ "main" ]
+    branches: "main"
   schedule:
-    - cron: '32 1 * * 0'
+    - cron: '39 16 * * 2' # Runs every Tuesday at 16:39 UTC
 
-# Define the jobs to be executed by the workflow.
 jobs:
-  # Job to download the CodeQL Coding Standards Bundle.
-  download-coding-standards:
-    name: Download CodeQL Coding Standards Bundle
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
-    env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Download CodeQL bundle
-        run: gh release download -R advanced-security/codeql-coding-standards-bundle-releases v1.10.0 --pattern 'codeql-coding-standards.tar.gz'
-
-  # Job to analyze the codebase using CodeQL.
   analyze:
     name: Analyze (${{ matrix.language }})
-    needs: download-coding-standards
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     permissions:
       security-events: write
-      packages: read
-      actions: write
-      contents: read
+      packages: write
+      actions: write # Required for private repositories
+      contents: write
+
     strategy:
       fail-fast: false
       matrix:
@@ -43,33 +26,26 @@ jobs:
             build-mode: none
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Set up CodeQL tools
-        uses: github/codeql-action/setup@v2
-      - name: Cache CodeQL packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.cache/codeql
-          key: $}-codeql-$}
-          restore-keys: |
-            $}-codeql-
+        uses: actions/checkout@v4
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          tools: codeql-coding-standards.tar.gz
-          languages: javascript-typescript
-          build-mode: none
-          queries: autosar-default,autosar-required,security-extended,security-and-quality,autosar-advisory,autosar-audit,cert-default
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          queries: security-extended, security-and-quality
+
       - if: matrix.build-mode == 'manual'
-        name: Build codebase (manual build mode)
         shell: bash
         run: |
-          echo 'Replace this with the commands to build your code if using a "manual" build mode.'
-          echo 'Example:'
+          echo 'If you are using a "manual" build mode for one or more of the' \
+            'languages you are analyzing, replace this with the commands to build' \
+            'your code, for example:'
           echo '  make bootstrap'
           echo '  make release'
-          exit 1
+          # Remove exit 1 and add your build commands here
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: /language:${{matrix.language}}   
+          category: "/language:${{matrix.language}}"
