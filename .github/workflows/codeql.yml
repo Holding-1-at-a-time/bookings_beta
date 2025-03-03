@@ -17,6 +17,8 @@ jobs:
   download-coding-standards:
     name: Download CodeQL Coding Standards Bundle
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -70,6 +72,4 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: /language:${{matrix.language}}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          category: /language:${{matrix.language}}   
