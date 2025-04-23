@@ -1,15 +1,6 @@
 import { ConvexError } from "convex/values"
 import type { MutationCtx, QueryCtx } from "convex/server"
 
-// Types for JWT data passed from Clerk
-type UserInfo = {
-    clerkId: string
-    tenants?: {
-        tenantId: string
-        role: string
-    }[]
-}
-
 // Get the current authenticated user ID from the JWT
 export async function getUserId(ctx: QueryCtx | MutationCtx) {
     const identity = await ctx.auth.getUserIdentity()
@@ -112,4 +103,3 @@ export async function verifyOrgAccess(ctx: QueryCtx | MutationCtx, organizationI
 
     return { userId, organizationId, role: requiredRoles[0] }
 }
-
